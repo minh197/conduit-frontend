@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import "../styles/globals.css";
+import AuthContext from "../context/AuthContext";
+import "../src/style/global.css";
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
@@ -7,8 +8,6 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      // Optionally validate or fetch current user
-      // setUser(fetchedUser);
     }
   }, []);
 
