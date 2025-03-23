@@ -7,9 +7,18 @@ export default function Register() {
   const { setUser } = useContext(AuthContext);
 
   const handleRegister = async ({ username, email, password }) => {
-    // Registration logic here
-    console.log("Registering with:", username, email, password);
-  
+    try {
+      const response = await axios.post("api/users", {
+        user: { username, email, password },
+      });
+      const user = response.data;
+      localStorage.setItem("token", user.token);
+      setUser(user);
+      router.push("/");
+    } catch {
+      console.error("Login error:", err);
+      setError("Invalid credentials. Please try again.");
+    }
   };
 
   return (

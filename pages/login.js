@@ -12,6 +12,21 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post('/api/users/login', {
+        user: {
+          email, password
+        }
+      })
+      const user = response.data;
+      localStorage.setItem('token', user.token);
+      setUser(user);
+      router.push('/')
+    } catch {
+      console.error("Login error:", err);
+      setError("Invalid credentials. Please try again.");
+      
+    }
   };
 
   return (
