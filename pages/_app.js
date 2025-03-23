@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../src/context/AuthContext";
 import "../src/style/global.css";
 
 function MyApp({ Component, pageProps }) {

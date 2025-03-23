@@ -1,24 +1,11 @@
-import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
-import axios from "axios";
+import { useAuthActions } from "@/hooks/useAuthActions";
 import AuthCard from "../src/components/AuthCard";
 
 export default function Register() {
-  const { setUser } = useContext(AuthContext);
+  const { register } = useAuthActions();
 
   const handleRegister = async ({ username, email, password }) => {
-    try {
-      const response = await axios.post("api/users", {
-        user: { username, email, password },
-      });
-      const user = response.data;
-      localStorage.setItem("token", user.token);
-      setUser(user);
-      router.push("/");
-    } catch {
-      console.error("Login error:", err);
-      setError("Invalid credentials. Please try again.");
-    }
+    await register({ username, email, password });
   };
 
   return (

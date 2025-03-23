@@ -23,6 +23,7 @@ export default async function handler(req, res) {
     }
 
     const isValid = await bcrypt.compare(password, userFromDB.password);
+
     if (!isValid) {
       return res
         .status(401)

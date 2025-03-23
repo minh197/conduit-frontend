@@ -1,32 +1,14 @@
-import { useContext, useState } from "react";
-import AuthContext from "../context/AuthContext";
-import axios from "axios";
-import Link from "next/link";
+import { useAuthActions } from "@/hooks/useAuthActions";
 import AuthCard from "../src/components/AuthCard";
 
 export default function Login() {
-  const { setUser } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const {login, error} = useAuthActions()
+  
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('/api/users/login', {
-        user: {
-          email, password
-        }
-      })
-      const user = response.data;
-      localStorage.setItem('token', user.token);
-      setUser(user);
-      router.push('/')
-    } catch {
-      console.error("Login error:", err);
-      setError("Invalid credentials. Please try again.");
-      
-    }
+  const handleLogin = async ({email, password}) => {
+    console.log("email", email)
+    console.log("password", password)
+    await login({email, password})
   };
 
   return (
