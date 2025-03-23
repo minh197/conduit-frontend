@@ -14,7 +14,9 @@ export default function AuthCard({ onSubmit }) {
 
   const title = isLoginPage ? "Welcome Back" : "Create Account";
   const buttonText = isLoginPage ? "Sign in" : "Sign up";
-  const linkText = isLoginPage ? "Need an account?" : "Already have an account?";
+  const linkText = isLoginPage
+    ? "Need an account?"
+    : "Already have an account?";
   const linkHref = isLoginPage ? "/register" : "/login";
 
   const handleSubmit = async (e) => {
@@ -30,7 +32,7 @@ export default function AuthCard({ onSubmit }) {
       }
     } catch (error) {
       setErrors(
-        Array.isArray(error) ? error : [error.message || "An error occurred"]
+        Array.isArray(error) ? error : [error.message || "An error occurred"],
       );
     } finally {
       setIsSubmitting(false);
@@ -172,4 +174,3 @@ export default function AuthCard({ onSubmit }) {
     </div>
   );
 }
-

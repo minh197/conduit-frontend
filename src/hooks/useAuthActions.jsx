@@ -16,7 +16,7 @@ export function useAuthActions() {
       const user = response.data;
       localStorage.setItem("token", user.token);
       setUser(user);
-      router.push("/");
+      router.push("/editor");
     } catch (err) {
       console.error("Login error:", err);
       setError("Invalid credentials. Please try again.");
@@ -31,7 +31,7 @@ export function useAuthActions() {
       const user = response.data;
       localStorage.setItem("token", user.token);
       setUser(user);
-      router.push("/");
+      router.push("/login");
     } catch (err) {
       console.error("Registration error:", err);
       setError("Invalid credentials. Please try again.");
@@ -39,5 +39,3 @@ export function useAuthActions() {
   };
   return { login, register, error };
 }
-
-
