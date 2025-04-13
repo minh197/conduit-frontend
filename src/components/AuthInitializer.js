@@ -1,9 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
+import axios from "axios"; 
 
 // Helper component to fetch initial auth state
 function AuthInitializer({ children }) {
-  const { setUser, setLoading, user } = useContext(AuthContext); // Add setLoading to context if needed
+  const { setUser, setLoading, user, loading } = useContext(AuthContext); // Add setLoading to context if needed
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {

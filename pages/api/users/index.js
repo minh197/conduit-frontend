@@ -18,6 +18,17 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Check if username or email already exists
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        OR: [{ username }, { email }],
+      },
+    });
+     if (existingUser) {
+       return res.status(409).json({
+         errors: { body: ["Username or email already exists"] },
+       });
+     }
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 

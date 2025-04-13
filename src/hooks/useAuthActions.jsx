@@ -18,8 +18,13 @@ export function useAuthActions() {
       setUser(user);
       router.push("/editor");
     } catch (err) {
-      console.error("Login error:", err);
-      setError("Invalid credentials. Please try again.");
+       console.error("Registration error:", err);
+       if (err.response && err.response.data && err.response.data.errors) {
+         const serverErrors = err.response.data.errors.body;
+         setError(serverErrors.join(" "));
+       } else {
+         setError("An unexpected error occurred. Please try again.");
+       }
     }
   };
 

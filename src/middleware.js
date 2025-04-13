@@ -26,7 +26,8 @@ export async function middleware(request) {
     "/login", // Login page
     "/register", // Registration page
     "/api/users/login", // Login API endpoint
-    "/api/users", // User registration API
+    "/api/users", // User registration API,
+
   ];
 
   // Check if current path starts with any public path
@@ -45,6 +46,8 @@ export async function middleware(request) {
       console.error("JWT Verification Error:", err);
     }
   }
+  console.log("userpayload", userPayload)
+  console.log("ispublic", isPublicPath);
 
   // 4. Redirect unauthenticated users from protected pages
   if (!userPayload && !isPublicPath) {
@@ -72,6 +75,7 @@ export const config = {
      * - Next.js internal paths
      * - Static files
      */
+    "/editor/:path*",
     "/((?!api/public|api/auth/callback|_next/static|_next/image|favicon.ico).*)",
   ],
 };
