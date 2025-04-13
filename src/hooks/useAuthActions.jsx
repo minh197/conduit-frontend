@@ -9,12 +9,12 @@ export function useAuthActions() {
   const [error, setError] = useState(null);
 
   const login = async ({ email, password }) => {
+    setError(null);
     try {
       const response = await axios.post("/api/users/login", {
         user: { email, password },
       });
       const user = response.data;
-      localStorage.setItem("token", user.token);
       setUser(user);
       router.push("/editor");
     } catch (err) {
@@ -24,12 +24,12 @@ export function useAuthActions() {
   };
 
   const register = async ({ username, email, password }) => {
+    setError(null);
     try {
       const response = await axios.post("/api/users", {
         user: { username, email, password },
       });
       const user = response.data;
-      localStorage.setItem("token", user.token);
       setUser(user);
       router.push("/login");
     } catch (err) {
@@ -37,5 +37,17 @@ export function useAuthActions() {
       setError("Invalid credentials. Please try again.");
     }
   };
-  return { login, register, error };
+
+  const logout = async () => {
+    try {
+        await axios.post("/api/users/logout");
+        setUser(null);
+        router.push("/login");
+
+    } catch(err) {
+        console.error("Logout error:", err);
+    }
+
+  }
+  return { login, register, logout, error };
 }
