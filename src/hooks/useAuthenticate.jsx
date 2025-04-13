@@ -1,18 +1,10 @@
 import { useContext, useEffect } from "react";
-import { useRouter } from "next/router";
 import AuthContext from "@/context/AuthContext";
 
 function useAuthenticate() {
-  const { user } = useContext(AuthContext);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (user === null) {
-      router.push("/login");
-    }
-  }, [user, router]);
-
-  return { user };
+  const { user, loading } = useContext(AuthContext);
+  
+  return { user, loading };
 }
 
 export default useAuthenticate;
